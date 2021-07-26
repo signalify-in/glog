@@ -55,7 +55,7 @@ func new(token string) (*telegrambot, error) {
 	return nil, nil
 }
 
-func (b *telegrambot) send(text string) {
+func (b *telegrambot) Send(text string) {
 	msg := tgbotapi.NewMessage(b.ChatID, text)
 	b.Bot.Send(msg)
 }

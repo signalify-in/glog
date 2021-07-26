@@ -1,6 +1,6 @@
-module github.com/4FR4KO-POVELECKO/teles
+module github.com/signalify-in/teles
 
-go 1.15
+go 1.16
 
 require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible // indirect

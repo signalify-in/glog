@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/4FR4KO-POVELECKO/teles"
+	"github.com/signalify-in/teles"
 	"github.com/stretchr/testify/assert"
 )
 

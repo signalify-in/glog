@@ -95,7 +95,7 @@ func (l *Logger) Log(path string, level Level, args ...interface{}) {
 	result = l.checkToArray(level, l.BotLevels)
 	if result {
 		msg := l.getLogStr(level, args...)
-		l.Bot.send(msg)
+		l.Bot.Send(msg)
 	}
 
 	write := l.getLogStr(level, args...)

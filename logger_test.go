@@ -1,4 +1,4 @@
-package teles_test
+package glog_test
 
 import (
 	"bytes"

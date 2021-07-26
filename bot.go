@@ -1,4 +1,4 @@
-package teles
+package glog
 
 import (
 	"errors"

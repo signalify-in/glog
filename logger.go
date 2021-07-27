@@ -88,7 +88,6 @@ func (l *Logger) LogToFile(path string, level Level, args ...interface{}) {
 
 func (l *Logger) Log(path string, level Level, args ...interface{}) {
 	result := l.checkToArray(level, l.DirLevels)
-	args = append(args, "\n")
 	if result {
 		l.LogToFile(path, level, args...)
 	}
@@ -148,7 +147,6 @@ func (l *Logger) checkToArray(level Level, array []Level) bool {
 func (l *Logger) getLogStr(level Level, args ...interface{}) string {
 	now := time.Now().Format("2006.01.02 15:04:05")
 	str := fmt.Sprintf("%v", args...)
-	write := fmt.Sprintf("[%s] %s %s", now, level, str)
-
+	write := fmt.Sprintf("[%s] %s %s \n", now, level, str)
 	return write
 }

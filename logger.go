@@ -88,6 +88,7 @@ func (l *Logger) LogToFile(path string, level Level, args ...interface{}) {
 
 func (l *Logger) Log(path string, level Level, args ...interface{}) {
 	result := l.checkToArray(level, l.DirLevels)
+	args = append(args, "\n")
 	if result {
 		l.LogToFile(path, level, args...)
 	}

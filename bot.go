@@ -61,7 +61,7 @@ func (b *telegrambot) Send(text string) {
 }
 
 func checkChatID() (int64, bool) {
-	f, err := os.Open("./.teles/chat_id")
+	f, err := os.Open("./.glog/chat_id")
 	if err != nil {
 		return 0, false
 	}
@@ -79,12 +79,12 @@ func checkChatID() (int64, bool) {
 }
 
 func saveChatID(id int64) {
-	err := checkOrCreateDir("./.teles")
+	err := checkOrCreateDir("./.glog")
 	if err != nil {
 		return
 	}
 
-	f, err := checkOrCreateFile("./.teles/chat_id")
+	f, err := checkOrCreateFile("./.glog/chat_id")
 	if err != nil {
 		return
 	}

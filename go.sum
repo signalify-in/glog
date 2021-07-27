@@ -1,3 +1,5 @@
+github.com/4FR4KO-POVELECKO/teles v0.0.0-20210715113625-3a4ae77479be h1:FuXlVccW4rUPnr4hGDQ3vW8XQ8lgQGC+APL/ciGE8Iw=
+github.com/4FR4KO-POVELECKO/teles v0.0.0-20210715113625-3a4ae77479be/go.mod h1:/wYJq8ZZBfqgluKzHWwhorDq5rlhUr1vC6OT2XOUE2w=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible h1:2cauKuaELYAEARXRkq2LrJ0yDDv1rW7+wrTEdVL3uaU=

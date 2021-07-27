@@ -1,4 +1,4 @@
-module github.com/signalify-in/teles
+module github.com/signalify-in/glog
 
 go 1.16
 

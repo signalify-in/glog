@@ -1,4 +1,4 @@
-package teles
+package glog
 
 type Level string
 

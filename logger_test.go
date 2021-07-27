@@ -1,4 +1,4 @@
-package teles_test
+package glog_test
 
 import (
 	"bytes"
@@ -7,17 +7,17 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/signalify-in/teles"
+	"github.com/signalify-in/glog"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLogger_New(t *testing.T) {
-	logger := teles.New()
-	assert.Equal(t, reflect.TypeOf(logger), reflect.TypeOf(&teles.Logger{}))
+	logger := glog.New()
+	assert.Equal(t, reflect.TypeOf(logger), reflect.TypeOf(&glog.Logger{}))
 }
 
 var buf bytes.Buffer
-var logger = teles.New()
+var logger = glog.New()
 
 func readOutput() {
 	log.SetOutput(&buf)
@@ -57,9 +57,9 @@ func TestLogger_NewBot(t *testing.T) {}
 
 func TestLogger_NewDir(t *testing.T) {
 	path := "./log"
-	levels := []teles.Level{
-		teles.Error,
-		teles.Fatal,
+	levels := []glog.Level{
+		glog.Error,
+		glog.Fatal,
 	}
 	err := logger.NewDir(path, levels)
 

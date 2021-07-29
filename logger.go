@@ -97,10 +97,8 @@ func (l *Logger) Log(path string, level Level, args ...interface{}) {
 		msg := l.getLogStr(level, args...)
 		l.Bot.Send(msg)
 	}
-
-	write := l.getLogStr(level, args...)
-
-	fmt.Println(write)
+	// write := l.getLogStr(level, args...)
+	//fmt.Println(write)
 }
 
 func (l *Logger) Trace(args ...interface{}) {

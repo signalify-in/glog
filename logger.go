@@ -26,15 +26,15 @@ func New(level uint8) *Logger {
 		Debug,
 		Trace,
 	}
-	botLevels := []Level{
+	/* botLevels := []Level{
 		Panic,
 		Fatal,
 		Error,
-	}
+	} */
 	if level >= uint8(len(dirLevels)) {
-		return &Logger{DirLevels: dirLevels, BotLevels: botLevels}
+		return &Logger{DirLevels: dirLevels}
 	}
-	return &Logger{DirLevels: dirLevels[:level], BotLevels: botLevels}
+	return &Logger{DirLevels: dirLevels[:level]}
 }
 
 func (l *Logger) NewBot(token string, chatId int, levels []Level) error {
@@ -66,10 +66,8 @@ func (l *Logger) NewDir(path string, levels []Level) error {
 	if result.IsDir() {
 		l.DirPath = path
 		l.DirLevels = levels
-
 		return nil
 	}
-
 	l.Error(err)
 	return errors.New("Error to create directory, a file with the same name already exists")
 }

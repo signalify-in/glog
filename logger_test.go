@@ -35,19 +35,6 @@ func TestLogger_NewWithLevels(t *testing.T) {
 
 func TestLogger_NewBot(t *testing.T) {}
 
-/* func TestLogger_NewDir(t *testing.T) {
-	path := "./log"
-	levels := []glog.Level{
-		glog.Error,
-		glog.Fatal,
-	}
-	err := logger.NewDir(path, levels)
-	logger.Lot = true
-	assert.NoError(t, err)
-	assert.Equal(t, logger.DirPath, path)
-	assert.Equal(t, logger.DirLevels, levels)
-} */
-
 func TestLogger_Trace(t *testing.T) {
 	readOutput()
 	logger.Trace("trace")

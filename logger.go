@@ -26,22 +26,26 @@ func New(level uint8) *Logger {
 		Debug,
 		Trace,
 	}
-	if level >= uint8(len(dirLevels)) {
-		return &Logger{DirLevels: dirLevels}
+	botLevels := []Level{
+		Panic,
+		Fatal,
+		Error,
 	}
-	return &Logger{DirLevels: dirLevels[:level]}
+	if level >= uint8(len(dirLevels)) {
+		return &Logger{DirLevels: dirLevels, BotLevels: botLevels}
+	}
+	return &Logger{DirLevels: dirLevels[:level], BotLevels: botLevels}
 }
 
-func (l *Logger) NewBot(token string, levels []Level) error {
-	bot, err := new(token)
+func (l *Logger) NewBot(token string, chatId int, levels []Level) error {
+	bot, err := new(token, chatId)
 	if err != nil {
 		l.Error(err)
 		return errors.New("Error to connect the bot")
 	}
-
+	bot.ChatID = int64(chatId)
 	l.Bot = bot
 	l.BotLevels = levels
-
 	return nil
 }
 

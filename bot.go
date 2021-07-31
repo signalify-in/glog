@@ -16,12 +16,14 @@ type telegrambot struct {
 	ChatID int64
 }
 
-func new(token string) (*telegrambot, error) {
+func new(token string, chat_id int) (*telegrambot, error) {
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
 		return nil, err
 	}
-
+	if chat_id != 0 {
+		saveChatID(int64(chat_id))
+	}
 	bot.Debug = false
 
 	id, result := checkChatID()

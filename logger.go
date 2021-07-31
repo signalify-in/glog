@@ -34,7 +34,7 @@ func New(level uint8, otherArgs ...string) *Logger {
 	} */
 	prefix := ""
 	if len(otherArgs) == 1 {
-		prefix = otherArgs[1]
+		prefix = otherArgs[0]
 	}
 	if level >= uint8(len(dirLevels)) {
 		return &Logger{DirLevels: dirLevels, LogPrefix: prefix}

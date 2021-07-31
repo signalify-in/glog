@@ -167,7 +167,7 @@ func (l *Logger) getLogStr(level Level, args ...interface{}) string {
 	now := time.Now().Format("2006.01.02 15:04:05")
 	str := fmt.Sprintf("%v", args...)
 	write := ""
-	println("found prefix ", l.LogPrefix)
+	println("using prefix ", l.LogPrefix)
 	if l.LogPrefix == "" {
 		write = fmt.Sprintf("[%s] %s %s \n", now, level, str)
 	} else {

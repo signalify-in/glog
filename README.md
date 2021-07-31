@@ -1,15 +1,18 @@
-# Teles ![](.github/logo.jpg)
-Teles is a small logger for Go.
+# Glog 
+
+(This repo is a hard fork of Tele [https://github.com/4FR4KO-POVELECKO/glog]).
+
+Glog is a small console,file and Telegram Bot logger for Go.
 
 Logging in:
-- Telegram bot 
+- Telegram bot (in-progress)
 - File ```.log```
-- Terminal 
+- Terminal
 
 ## Installation
 
 ```bash
-go get -u github.com/4FR4KO-POVELECKO/teles
+go get -u github.com/signalify.in/glog
 ```
 
 ## Examples
@@ -21,22 +24,22 @@ Start:
 package main
 
 import (
-	"github.com/4FR4KO-POVELECKO/teles"
+	"github.com/signalify.in/glog"
 )
 
 func main() {
 	// Create new logger
-	logger := teles.New()
+	logger := glog.New()
 
 	// Log to file 
-	dirLevels := []teles.Level{ // choose levels
-		teles.Panic,
-		teles.Fatal,
-		teles.Error,
-		teles.Warning,
-		teles.Info,
-		teles.Debug,
-		teles.Trace,
+	dirLevels := []glog.Level{ // choose levels
+		glog.Panic,
+		glog.Fatal,
+		glog.Error,
+		glog.Warning,
+		glog.Info,
+		glog.Debug,
+		glog.Trace,
 	}
 
 	err := logger.NewDir("./log", dirLevels)
@@ -45,14 +48,14 @@ func main() {
 	}
 
 	// Log to telegram bot
-	botLevels := []teles.Level{ // choose levels
-		teles.Panic,
-		teles.Fatal,
-		teles.Error,
-		teles.Warning,
-		teles.Info,
-		teles.Debug,
-		teles.Trace,
+	botLevels := []glog.Level{ // choose levels
+		glog.Panic,
+		glog.Fatal,
+		glog.Error,
+		glog.Warning,
+		glog.Info,
+		glog.Debug,
+		glog.Trace,
 	}
 
 	err = logger.NewBot("BOT_TOKEN", botLevels)
@@ -65,7 +68,7 @@ func main() {
 
 Usage:
 ```go
-logger.Log("./log/trace.Log", teles.Info, "text")
+logger.Log("./log/trace.Log", glog.Info, "text")
 logger.Trace("text")
 logger.Debug("text")
 logger.Info("text")
@@ -77,7 +80,7 @@ logger.Panic("text")
 
 Levels:
 ```go
-package teles
+package glog
 
 type Level string
 

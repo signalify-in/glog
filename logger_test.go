@@ -2,6 +2,7 @@ package glog_test
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"os"
 	"reflect"
@@ -11,84 +12,46 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	logger *glog.Logger
+	buf    bytes.Buffer
+)
+
 func TestLogger_New(t *testing.T) {
-	logger := glog.New()
+	logger = glog.New(glog.LevelInfo)
 	assert.Equal(t, reflect.TypeOf(logger), reflect.TypeOf(&glog.Logger{}))
 }
 
-var buf bytes.Buffer
-var logger = glog.New()
+func TestLogger_NewWithLevels(t *testing.T) {
+	logger = glog.New(glog.LevelInfo)
+	assert.Equal(t, 5, len(logger.DirLevels))
 
-func readOutput() {
-	log.SetOutput(&buf)
-	defer func() {
-		log.SetOutput(os.Stderr)
-	}()
+	logger = glog.New(glog.LevelDebug)
+	assert.Equal(t, 6, len(logger.DirLevels))
+
+	logger = glog.New(glog.LevelFatal)
+	assert.Equal(t, 2, len(logger.DirLevels))
 }
-
-// func readLastLine(path string) string {
-// 	file, _ := os.Open(path)
-// 	defer file.Close()
-
-// 	reader := bufio.NewReader(file)
-// 	lastLineSize := 0
-// 	for {
-// 		line, _, err := reader.ReadLine()
-// 		if err == io.EOF {
-// 			break
-// 		}
-// 		lastLineSize = len(line)
-// 	}
-
-// 	fileInfo, _ := os.Stat(path)
-// 	buffer := make([]byte, lastLineSize)
-// 	offset := fileInfo.Size() - int64(lastLineSize+1)
-// 	numRead, _ := file.ReadAt(buffer, offset)
-
-// 	if offset != 0 {
-// 		buffer = buffer[:numRead]
-// 		return string(buffer)
-// 	}
-
-// 	return ""
-// }
 
 func TestLogger_NewBot(t *testing.T) {}
 
-func TestLogger_NewDir(t *testing.T) {
+/* func TestLogger_NewDir(t *testing.T) {
 	path := "./log"
 	levels := []glog.Level{
 		glog.Error,
 		glog.Fatal,
 	}
 	err := logger.NewDir(path, levels)
-
+	logger.Lot = true
 	assert.NoError(t, err)
 	assert.Equal(t, logger.DirPath, path)
 	assert.Equal(t, logger.DirLevels, levels)
-}
-
-// func TestLogger_LogToFile(t *testing.T) {
-// 	var now = time.Now().Format("2006.01.02 15:04:05")
-// 	log := fmt.Sprintf("[%s] ERROR: test error", now)
-// 	path := "./log/error.log"
-// 	logger.LogToFile(path, teles.Error, "test error")
-// 	result, err := os.Stat(path)
-
-// 	assert.NotNil(t, result)
-// 	assert.NoError(t, err)
-// 	assert.Equal(t, os.IsNotExist(err), false)
-// 	assert.Equal(t, result.IsDir(), false)
-
-// 	lastLine := readLastLine(path)
-// 	fmt.Println("last:", lastLine)
-// 	fmt.Println("log:", log)
-// 	assert.Equal(t, lastLine, log)
-// }
+} */
 
 func TestLogger_Trace(t *testing.T) {
 	readOutput()
 	logger.Trace("trace")
+	logger.Info(fmt.Sprintf("tracing log %v \n", len(logger.DirLevels)))
 	t.Log(buf.String())
 }
 
@@ -119,3 +82,10 @@ func TestLogger_Error(t *testing.T) {
 func TestLogger_Fatal(t *testing.T) {}
 
 func TestLogger_Panic(t *testing.T) {}
+
+func readOutput() {
+	log.SetOutput(&buf)
+	defer func() {
+		log.SetOutput(os.Stderr)
+	}()
+}

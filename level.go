@@ -11,3 +11,13 @@ const (
 	Debug   Level = "DEBUG:"
 	Trace   Level = "TRACE:"
 )
+
+const (
+	LevelPanic uint8 = iota + 1
+	LevelFatal
+	LevelError
+	LevelWarning
+	LevelInfo
+	LevelDebug
+	LevelTrace
+)

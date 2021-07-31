@@ -13,10 +13,23 @@ type Logger struct {
 
 	DirPath   string
 	DirLevels []Level
+	Lot       bool // Lot - Log on Terminal
 }
 
-func New() *Logger {
-	return &Logger{}
+func New(level uint8) *Logger {
+	dirLevels := []Level{
+		Panic,
+		Fatal,
+		Error,
+		Warning,
+		Info,
+		Debug,
+		Trace,
+	}
+	if level >= uint8(len(dirLevels)) {
+		return &Logger{DirLevels: dirLevels}
+	}
+	return &Logger{DirLevels: dirLevels[:level]}
 }
 
 func (l *Logger) NewBot(token string, levels []Level) error {
@@ -97,8 +110,10 @@ func (l *Logger) Log(path string, level Level, args ...interface{}) {
 		msg := l.getLogStr(level, args...)
 		l.Bot.Send(msg)
 	}
-	// write := l.getLogStr(level, args...)
-	//fmt.Println(write)
+	if l.Lot {
+		write := l.getLogStr(level, args...)
+		fmt.Println(write)
+	}
 }
 
 func (l *Logger) Trace(args ...interface{}) {
@@ -138,7 +153,6 @@ func (l *Logger) checkToArray(level Level, array []Level) bool {
 			return true
 		}
 	}
-
 	return false
 }
 

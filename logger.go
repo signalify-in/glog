@@ -14,9 +14,10 @@ type Logger struct {
 	DirPath   string
 	DirLevels []Level
 	Lot       bool // Lot - Log on Terminal
+	LogPrefix string
 }
 
-func New(level uint8) *Logger {
+func New(level uint8, otherArgs ...string) *Logger {
 	dirLevels := []Level{
 		Panic,
 		Fatal,
@@ -31,10 +32,14 @@ func New(level uint8) *Logger {
 		Fatal,
 		Error,
 	} */
-	if level >= uint8(len(dirLevels)) {
-		return &Logger{DirLevels: dirLevels}
+	prefix := ""
+	if len(otherArgs) == 1 {
+		prefix = otherArgs[1]
 	}
-	return &Logger{DirLevels: dirLevels[:level]}
+	if level >= uint8(len(dirLevels)) {
+		return &Logger{DirLevels: dirLevels, LogPrefix: prefix}
+	}
+	return &Logger{DirLevels: dirLevels[:level], LogPrefix: prefix}
 }
 
 func (l *Logger) NewBot(token string, chatId int, levels []Level) error {
@@ -161,6 +166,12 @@ func (l *Logger) checkToArray(level Level, array []Level) bool {
 func (l *Logger) getLogStr(level Level, args ...interface{}) string {
 	now := time.Now().Format("2006.01.02 15:04:05")
 	str := fmt.Sprintf("%v", args...)
-	write := fmt.Sprintf("[%s] %s %s \n", now, level, str)
+	write := ""
+	println("found prefix ", l.LogPrefix)
+	if l.LogPrefix != "" {
+		write = fmt.Sprintf("[%s] %s %s \n", now, level, str)
+	} else {
+		write = fmt.Sprintf("[%s] [%s] %s %s \n", now, l.LogPrefix, level, str)
+	}
 	return write
 }

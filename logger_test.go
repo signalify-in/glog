@@ -23,14 +23,15 @@ func TestLogger_New(t *testing.T) {
 }
 
 func TestLogger_NewWithLevels(t *testing.T) {
+	logger.LogPrefix = "Test"
 	logger = glog.New(glog.LevelInfo)
 	assert.Equal(t, 5, len(logger.DirLevels))
 
-	logger = glog.New(glog.LevelDebug)
-	assert.Equal(t, 6, len(logger.DirLevels))
-
 	logger = glog.New(glog.LevelFatal)
 	assert.Equal(t, 2, len(logger.DirLevels))
+
+	logger = glog.New(glog.LevelDebug)
+	assert.Equal(t, 6, len(logger.DirLevels))
 }
 
 func TestLogger_NewBot(t *testing.T) {}
@@ -50,6 +51,7 @@ func TestLogger_Debug(t *testing.T) {
 
 func TestLogger_Info(t *testing.T) {
 	readOutput()
+	logger.Lot = true
 	logger.Info("info")
 	t.Log(buf.String())
 }

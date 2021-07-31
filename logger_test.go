@@ -7,6 +7,7 @@ import (
 	"os"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/signalify-in/glog"
 	"github.com/stretchr/testify/assert"
@@ -22,30 +23,25 @@ func TestLogger_New(t *testing.T) {
 	assert.Equal(t, reflect.TypeOf(logger), reflect.TypeOf(&glog.Logger{}))
 }
 
-func TestLogger_NewWithLevels(t *testing.T) {
-	logger.LogPrefix = "Test"
-	logger = glog.New(glog.LevelInfo)
-	assert.Equal(t, 5, len(logger.DirLevels))
-
-	logger = glog.New(glog.LevelFatal)
-	assert.Equal(t, 2, len(logger.DirLevels))
-
-	logger = glog.New(glog.LevelDebug)
-	assert.Equal(t, 6, len(logger.DirLevels))
-}
-
 func TestLogger_NewBot(t *testing.T) {}
 
 func TestLogger_Trace(t *testing.T) {
 	readOutput()
-	logger.Trace("trace")
-	logger.Info(fmt.Sprintf("tracing log %v \n", len(logger.DirLevels)))
+	logger = glog.New(glog.LevelTrace, "Test")
+	assert.Equal(t, 7, len(logger.DirLevels))
+
+	logger.Trace(fmt.Sprintf("trace %v", time.Now()))
 	t.Log(buf.String())
 }
 
 func TestLogger_Debug(t *testing.T) {
 	readOutput()
+	logger = glog.New(glog.LevelDebug)
+	assert.Equal(t, 6, len(logger.DirLevels))
 	logger.Debug("debug")
+	logger = glog.New(glog.LevelDebug, "Test Debug")
+	logger.Debug("debug test with prefix")
+	//add more assertions here
 	t.Log(buf.String())
 }
 

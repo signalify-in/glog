@@ -10,6 +10,7 @@ const (
 	Info    Level = "INFO:"
 	Debug   Level = "DEBUG:"
 	Trace   Level = "TRACE:"
+	Notify  Level = "NOTIFY:" // this exist to send notifications to tg bot
 )
 
 const (

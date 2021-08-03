@@ -143,6 +143,10 @@ func (l *Logger) Error(args ...interface{}) {
 	l.Log("./log/error.Log", Error, args...)
 }
 
+func (l *Logger) Notify(args ...interface{}) {
+	l.Log("./log/notify.Log", Notify, args...)
+}
+
 func (l *Logger) Fatal(args ...interface{}) {
 	l.Log("./log/fatal.Log", Fatal, args...)
 	os.Exit(1)

@@ -46,7 +46,7 @@ func New(level uint8, otherArgs ...string) *Logger {
 func (l *Logger) NewBot(token string, chatId int, levels []Level) error {
 	bot, err := new(token, chatId)
 	if err != nil {
-		l.Error(err)
+		//l.Error(err)
 		return errors.New("Error to connect the bot")
 	}
 	bot.ChatID = int64(chatId)
@@ -60,7 +60,7 @@ func (l *Logger) NewDir(path string, levels []Level) error {
 	if os.IsNotExist(err) {
 		err := os.Mkdir(path, os.ModePerm)
 		if err != nil {
-			l.Error(err)
+			//l.Error(err)
 			return errors.New("Error to create directory")
 		}
 
@@ -74,7 +74,7 @@ func (l *Logger) NewDir(path string, levels []Level) error {
 		l.DirLevels = levels
 		return nil
 	}
-	l.Error(err)
+	//l.Error(err)
 	return errors.New("Error to create directory, a file with the same name already exists")
 }
 
@@ -86,7 +86,7 @@ func (l *Logger) LogToFile(path string, level Level, args ...interface{}) {
 	if os.IsNotExist(err) {
 		f, err := os.Create(path)
 		if err != nil {
-			l.Error(errors.New("Error to create file"), err)
+			fmt.Printf("Error to create file %v", err.Error())
 			return
 		}
 
@@ -95,14 +95,14 @@ func (l *Logger) LogToFile(path string, level Level, args ...interface{}) {
 
 	f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		l.Error(errors.New("Error to open file"), err)
+		fmt.Printf("error to open file %v", err.Error())
 		return
 	}
 	defer f.Close()
 
 	_, err = f.WriteString(write)
 	if err != nil {
-		l.Error(errors.New("Error to write file"), err)
+		fmt.Printf("Error to write file %v", err.Error())
 		return
 	}
 }

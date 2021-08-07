@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -169,13 +170,16 @@ func (l *Logger) checkToArray(level Level, array []Level) bool {
 
 func (l *Logger) getLogStr(level Level, args ...interface{}) string {
 	now := time.Now().Format("2006.01.02 15:04:05")
-	str := fmt.Sprintf("%v", args...)
-	write := ""
-	// fmt.Printf("using prefix %v\n", l.LogPrefix)
-	if l.LogPrefix == "" {
-		write = fmt.Sprintf("[%s] %s %s \n", now, level, str)
-	} else {
-		write = fmt.Sprintf("[%s] [%s] %s %s \n", now, l.LogPrefix, level, str)
+	head := fmt.Sprint(args[0])
+	for _, v := range args[1:] {
+		head = strings.Replace(head, "%v", fmt.Sprint(v), 1)
 	}
-	return write
+	// due to go's fmt directive reports for
+	// extra %v error we have to eliminate extra %v
+	str := head //fmt.Sprintf(fmtDirective, args...)
+	if l.LogPrefix == "" {
+		return fmt.Sprintf("[%s] %s %s \n", now, level, str)
+	} else {
+		return fmt.Sprintf("[%s] [%s] %s %s \n", now, l.LogPrefix, level, str)
+	}
 }
